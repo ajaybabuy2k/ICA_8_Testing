@@ -27,9 +27,7 @@ public class urinals {
     public static boolean goodString(String str){
         for(int iter=0;iter<str.length();iter++)
         {
-            boolean condition = str.charAt(iter)=='1' || str.charAt(iter)=='0';
-
-            if(condition )
+            if(str.charAt(iter)=='1' || str.charAt(iter)=='0')
             {
                 if((iter>0) && (str.charAt(iter)=='1') && (str.charAt(iter-1)=='1'))
                 {
