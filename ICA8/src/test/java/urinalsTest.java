@@ -50,6 +50,9 @@ class urinalsTest {
 
         System.out.println("======Ajay Babu Yadavalli == TEST ELEVEN EXECUTED =======");
         assertEquals(2,urinals.countUrinals("0000"));
+
+        System.out.println("======Ajay Babu Yadavalli == TEST TWELVE EXECUTED s=======");
+        assertEquals(1,urinals.countUrinals("01000"));
     }
 
 }
