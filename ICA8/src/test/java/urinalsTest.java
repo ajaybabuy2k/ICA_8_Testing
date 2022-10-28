@@ -53,6 +53,10 @@ class urinalsTest {
 
         System.out.println("======Ajay Babu Yadavalli == TEST TWELVE EXECUTED s=======");
         assertEquals(1,urinals.countUrinals("01000"));
+
+        System.out.println("======Ajay Babu Yadavalli == TEST Thirteen EXECUTED s=======");
+        assertEquals(0,urinals.countUrinals("011"));
+        //TRY GIVING THE STRING AS INPUT TO THE MAIN FILE IT IS PRININT -1  
     }
 
 }
