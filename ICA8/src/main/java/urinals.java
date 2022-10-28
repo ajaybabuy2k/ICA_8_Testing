@@ -20,7 +20,7 @@ public class urinals {
 
         else if(verifyGoodString==True)
         {
-            System.out.println("Valid Urinals Positions");
+            System.out.println("Valid Urinals Positions and Verified");
         }
 
     }
