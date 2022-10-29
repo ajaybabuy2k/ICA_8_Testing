@@ -15,6 +15,28 @@ public class urinals {
 
     public static boolean False;
 
+
+
+
+    public static boolean checkFileData(String filePath) {
+        try {
+            File fileNamePath = new File(filePath);
+            Scanner scannerObj = new Scanner(fileNamePath);
+            return scannerObj.hasNextLine();
+
+        }
+
+        catch (Exception exceptione) {
+
+            //if(exceptione):
+            //{
+            //    System.out.println("Exception Found");
+            //}
+
+            return false;
+        }
+    }
+
     public static boolean nameFileFound(String filePath) {
 
         try {
@@ -35,24 +57,26 @@ public class urinals {
 
     }
 
+    public static void writeToRuleFile(Vector<Integer>v) throws IOException,FileNotFoundException {
 
-    public static boolean checkFileData(String filePath) {
-        try {
-            File fileNamePath = new File(filePath);
-            Scanner scannerObj = new Scanner(fileNamePath);
-            return scannerObj.hasNextLine();
+        File ruleFile=new File("src/main/java/rule.dat");
+        File dataRuleFile=ruleFile;
+        int iterCounter=1;
 
+        while(dataRuleFile.exists())
+        {
+            dataRuleFile=new File("src/main/java/rule"+iterCounter+".dat");
+            iterCounter=iterCounter+1;
         }
+        ruleFile=dataRuleFile;
 
-        catch (Exception exceptione) {
-
-            //if(exceptione):
-            //{
-            //    System.out.println("Exception Found");
-            //}
-
-            return false;
+        FileWriter ruleFileReader=new FileWriter(ruleFile.getAbsoluteFile());
+        BufferedWriter fileBufferWriter=new BufferedWriter(ruleFileReader);
+        for(Integer counterInteger:v)
+        {
+            fileBufferWriter.write(counterInteger+"\n");
         }
+        fileBufferWriter.close();
     }
 
     public static void readInputNameFile(String filePath) throws IOException,FileNotFoundException
@@ -87,27 +111,7 @@ public class urinals {
         writeToRuleFile(vectorInput);
     }
 
-    public static void writeToRuleFile(Vector<Integer>v) throws IOException,FileNotFoundException {
 
-        File ruleFile=new File("src/main/java/rule.dat");
-        File dataRuleFile=ruleFile;
-        int iterCounter=1;
-
-        while(dataRuleFile.exists())
-        {
-            dataRuleFile=new File("src/main/java/rule"+iterCounter+".dat");
-            iterCounter=iterCounter+1;
-        }
-        ruleFile=dataRuleFile;
-
-        FileWriter ruleFileReader=new FileWriter(ruleFile.getAbsoluteFile());
-        BufferedWriter fileBufferWriter=new BufferedWriter(ruleFileReader);
-        for(Integer counterInteger:v)
-        {
-            fileBufferWriter.write(counterInteger+"\n");
-        }
-        fileBufferWriter.close();
-    }
 
 
 
