@@ -55,10 +55,6 @@ public class urinals {
         }
     }
 
-
-
-
-
     public static void readInputNameFile(String filePath) throws IOException,FileNotFoundException
     {
 
@@ -89,13 +85,6 @@ public class urinals {
             }
         }
         writeToRuleFile(vectorInput);
-    }
-
-    public static String fetchInputString(){
-        Scanner scannerObject=new Scanner(System.in);
-        System.out.println("Enter the input string:");
-        String inputString=scannerObject.next();
-        return inputString;
     }
 
     public static void writeToRuleFile(Vector<Integer>v) throws IOException,FileNotFoundException {
