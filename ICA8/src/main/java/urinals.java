@@ -1,30 +1,154 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+
+import java.io.*;
+
+
+import java.util.Vector;
 
 public class urinals {
+
+
 
     public static boolean True;
 
     public static boolean False;
 
+    public static boolean nameFileFound(String filePath) {
 
-    public static void main(String[] args) {
+        try {
 
-        String returnedString = getString();
+            File fileNamePath = new File(filePath);
+            Scanner scannerObject = new Scanner(fileNamePath);
+            return true;
 
-        boolean verifyGoodString=goodString(returnedString);
-
-        if(verifyGoodString==False)
-        {
-            System.out.println("Invalid Urinals Positions, printing -1");
         }
-
-        else if(verifyGoodString==True)
+        catch (FileNotFoundException exceptione)
         {
-            int urinalsCount=countUrinals(returnedString);
-            System.out.println(urinalsCount);
+            //if(exceptione):
+            //{
+            //    System.out.println("Exception Found");
+            //}
+            return false;
         }
 
     }
+
+
+    public static boolean checkFileData(String filePath) {
+        try {
+            File fileNamePath = new File(filePath);
+            Scanner scannerObj = new Scanner(fileNamePath);
+            return scannerObj.hasNextLine();
+
+        }
+
+        catch (Exception exceptione) {
+
+            //if(exceptione):
+            //{
+            //    System.out.println("Exception Found");
+            //}
+
+            return false;
+        }
+    }
+
+
+
+
+
+    public static void readInputNameFile(String filePath) throws IOException,FileNotFoundException
+    {
+
+        if(nameFileFound(filePath)==false)
+        {
+            System.out.println("Input File not found in the database");
+            return;
+        }
+        if(checkFileData(filePath)==false)
+        {
+            System.out.println("The File has no data in it and it's Empty file");
+            return;
+        }
+        File fileNamePath = new File(filePath);
+        Scanner scannerObj = new Scanner(fileNamePath);
+        Vector<Integer> vectorInput=new Vector<Integer>();
+
+        while(scannerObj.hasNextLine()) {
+            String readLineInput=scannerObj.nextLine();
+            boolean returnedGoodString = goodString(readLineInput);
+            if (returnedGoodString == false) {
+                vectorInput.add(-1);
+                break;
+            }
+            else {
+                int countedValue = countUrinals(readLineInput);
+                vectorInput.add(countedValue);
+            }
+        }
+        writeToRuleFile(vectorInput);
+    }
+
+    public static String fetchInputString(){
+        Scanner scannerObject=new Scanner(System.in);
+        System.out.println("Enter the input string:");
+        String inputString=scannerObject.next();
+        return inputString;
+    }
+
+    public static void writeToRuleFile(Vector<Integer>v) throws IOException,FileNotFoundException {
+
+        File ruleFile=new File("src/main/java/rule.dat");
+        File dataRuleFile=ruleFile;
+        int iterCounter=1;
+
+        while(dataRuleFile.exists())
+        {
+            dataRuleFile=new File("src/main/java/rule"+iterCounter+".dat");
+            iterCounter=iterCounter+1;
+        }
+        ruleFile=dataRuleFile;
+
+        FileWriter ruleFileReader=new FileWriter(ruleFile.getAbsoluteFile());
+        BufferedWriter fileBufferWriter=new BufferedWriter(ruleFileReader);
+        for(Integer counterInteger:v)
+        {
+            fileBufferWriter.write(counterInteger+"\n");
+        }
+        fileBufferWriter.close();
+    }
+
+
+
+
+
+
+
+    public static void main(String[] args) throws IOException,FileNotFoundException {
+
+        System.out.println("You can take the input file as per your requirement");
+        System.out.println("Do you want to read ");
+        System.out.println("1. Using File Name");
+        System.out.println("2. From the String");
+
+        Scanner scannerObject=new Scanner(System.in);
+        int scannerInput=scannerObject.nextInt();
+
+        if(scannerInput==1) {
+            readInputNameFile("src/main/java/urina.dat");
+        }
+        else if(scannerInput==2) {
+            String getInputString = getString();
+            System.out.println("The No of Urinals can be adjusted are "+countUrinals(getInputString));
+        }
+        else {
+            System.out.println("Invalid User Input");
+        }
+
+    }
+
     public static boolean goodString(String str){
         for(int iter=0;iter<str.length();iter++)
         {
@@ -41,7 +165,6 @@ public class urinals {
         }
         return true;
     }
-
 
     public static int countUrinals(String inputString)
     {
